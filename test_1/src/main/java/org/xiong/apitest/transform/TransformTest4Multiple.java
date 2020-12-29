@@ -43,6 +43,9 @@ public class TransformTest4Multiple {
         DataStream<SensorReading> lowStream = splitStream.select("low");
         DataStream<SensorReading> allStream = splitStream.select("high", "low");
 
+        // 合并流，前提是两个流的泛型类型相同
+        DataStream<SensorReading> unionStream = highStream.union(lowStream);
+
 //        highStream.print("high");
 //        lowStream.print("low");
 //        allStream.print("all");
