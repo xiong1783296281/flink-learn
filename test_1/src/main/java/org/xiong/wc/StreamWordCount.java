@@ -1,11 +1,10 @@
-package com.aicyber.wc;
+package org.xiong.wc;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.java.functions.KeySelector;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.slf4j.Logger;
 
 /**
  * 流处理

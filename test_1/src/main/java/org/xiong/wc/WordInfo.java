@@ -1,4 +1,4 @@
-package com.aicyber.wc;
+package org.xiong.wc;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

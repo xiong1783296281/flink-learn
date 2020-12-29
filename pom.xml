@@ -16,6 +16,8 @@
         <flink.version>1.11.1</flink.version>
         <scala.version>2.12</scala.version>
         <lombok.version>1.18.12</lombok.version>
+        <kafka.version>2.0</kafka.version>
+        <flink.connect.kafka.version>1.10.1</flink.connect.kafka.version>
     </properties>
 
     <dependencyManagement>
@@ -79,6 +81,13 @@
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
                 <scope>provided</scope>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-connector-kafka-base -->
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-connector-kafka_${scala.version}</artifactId>
+                <version>${flink.version}</version>
             </dependency>
 
 
