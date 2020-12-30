@@ -17,7 +17,7 @@
         <scala.version>2.12</scala.version>
         <lombok.version>1.18.12</lombok.version>
         <kafka.version>2.0</kafka.version>
-        <flink.connect.kafka.version>1.10.1</flink.connect.kafka.version>
+        <bahir.version>1.0</bahir.version>
     </properties>
 
     <dependencyManagement>
@@ -82,6 +82,14 @@
                 <version>${lombok.version}</version>
                 <scope>provided</scope>
             </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.bahir/flink-connector-redis -->
+            <dependency>
+                <groupId>org.apache.bahir</groupId>
+                <artifactId>flink-connector-redis_2.11</artifactId>
+                <version>${bahir.version}</version>
+            </dependency>
+
 
             <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-connector-kafka-base -->
             <dependency>
