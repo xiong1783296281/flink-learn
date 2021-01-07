@@ -3,22 +3,25 @@ package org.xiong.apitest.window;
 import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
+import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.timestamps.BoundedOutOfOrdernessTimestampExtractor;
 import org.apache.flink.streaming.api.windowing.time.Time;
+import org.apache.flink.util.OutputTag;
 import org.xiong.apitest.beans.SensorReading;
 
 /**
  * @author: xiong
  * @create at 2021/1/4
  */
-public class WindowTest3EventTimeWindow {
+public class WindowTest3EventTimeWindow2 {
 
     public static void main(String[] args) throws Exception {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
+        env.getConfig().setAutoWatermarkInterval(100);
 
         DataStreamSource<String> inputStream = env.socketTextStream("localhost", 9999);
         DataStream<SensorReading> dataStream = inputStream.map(
@@ -41,6 +44,17 @@ public class WindowTest3EventTimeWindow {
                     }
                 });
 
+        OutputTag outputTag = new OutputTag<SensorReading>("late") {
+        };
+
+        SingleOutputStreamOperator<SensorReading> minTemperature = dataStream.keyBy("id")
+                .timeWindow(Time.seconds(15))
+                .allowedLateness(Time.minutes(1))
+                .sideOutputLateData(outputTag)
+                .minBy("temperature");
+
+        minTemperature.print("minTemp");
+        minTemperature.getSideOutput(outputTag).print("late");
 
 
         env.execute();
