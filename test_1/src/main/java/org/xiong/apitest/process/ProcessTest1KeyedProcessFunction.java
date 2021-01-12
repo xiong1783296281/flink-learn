@@ -34,6 +34,7 @@ public class ProcessTest1KeyedProcessFunction {
         env.execute();
 
     }
+
     public static class MyProcess extends KeyedProcessFunction<Tuple, SensorReading, Integer>{
 
         @Override
@@ -57,6 +58,9 @@ public class ProcessTest1KeyedProcessFunction {
         @Override
         public void onTimer(long timestamp, OnTimerContext ctx, Collector<Integer> out) throws Exception {
             System.out.println("当前时间戳 " +timestamp);
+            ctx.getCurrentKey();
+//            ctx.output();
+            ctx.timeDomain();
 
         }
     }
